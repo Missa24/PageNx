@@ -1,69 +1,159 @@
 "use client";
 
-import VideoModal from "@/components/video-modal";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { useState } from "react";
-import SectionTitle from "../Common/SectionTitle";
+import { Play, X, Volume2, VolumeX } from "lucide-react";
 
-export default function Video() {
-  const [isOpen, setOpen] = useState(false);
+export default function VideoSection() {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef(null);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   return (
     <>
-      <section className="relative z-10 py-16 md:py-20 lg:py-28">
-        <div className="container">
-          <SectionTitle
-            title="We are ready to help"
-            paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
-            center
-            mb="80px"
-          />
+      <section className="relative py-16 md:py-20 lg:py-28 bg-gradient-to-br from-[#030d41] via-[#0a1a5e] to-[#030d41] overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-1/4 left-10 w-80 h-80 bg-[#f7bd2d] rounded-full mix-blend-soft-light filter blur-3xl animate-pulse-slow"></div>
+          <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-[#f7bd2d] rounded-full mix-blend-soft-light filter blur-3xl animate-pulse-slow delay-1000"></div>
         </div>
-        <div className="relative overflow-hidden">
-          <div className="-mx-4 flex flex-wrap">
-            <div className="w-full px-4">
-              <div className="mx-auto max-w-[770px] overflow-hidden rounded-md">
-                <div className="relative aspect-77/40 items-center justify-center">
-                  <Image
-                    src="/images/video/image.png"
-                    alt="video image"
-                    className="object-cover"
-                    fill
-                  />
-                  <div className="absolute top-0 right-0 flex h-full w-full items-center justify-center">
-                    <button
-                      aria-label="video play button"
-                      onClick={() => setOpen(true)}
-                      className="text-primary flex h-[70px] w-[70px] items-center justify-center rounded-full bg-white/75 transition hover:bg-white"
-                    >
-                      <svg
-                        width="16"
-                        height="18"
-                        viewBox="0 0 16 18"
-                        className="fill-current"
-                      >
-                        <path d="M15.5 8.13397C16.1667 8.51888 16.1667 9.48112 15.5 9.86602L2 17.6603C1.33333 18.0452 0.499999 17.564 0.499999 16.7942L0.5 1.20577C0.5 0.43597 1.33333 -0.0451549 2 0.339745L15.5 8.13397Z" />
-                      </svg>
-                    </button>
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Acerca de nosotros
+            </h2>
+            <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+              NOXUN es una empresa especializada en el desarrollo de sistemas a medida a través de herramientas tecnológicas adaptadas a las necesidades de cada institución.
+            </p>
+          </div>
+
+          <div className="flex justify-center">
+            <div
+              className="relative w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl shadow-[#f7bd2d]/30 cursor-pointer transform transition-all duration-500 hover:scale-[1.02] hover:shadow-[#f7bd2d]/50"
+              onClick={() => setModalOpen(true)}
+            >
+              <div className="relative aspect-video bg-black">
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-cover"
+                  poster="/images/video/image.png"
+                  muted
+                  loop
+                  playsInline
+                >
+                  <source src="/sample-video.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#030d41]/90 via-transparent to-transparent"></div>
+
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-[#f7bd2d] rounded-full scale-110 opacity-20 animate-ping"></div>
+                    <div className="relative flex items-center justify-center w-20 h-20 md:w-24 md:h-24 bg-[#f7bd2d] rounded-full transition-all duration-300 hover:scale-110">
+                      <Play className="h-8 w-8 md:h-10 md:w-10 text-[#030d41] ml-1 fill-current" />
+                    </div>
                   </div>
+                </div>
+
+                <div className="absolute bottom-4 left-4 flex items-center space-x-3">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleMute();
+                    }}
+                    className="p-2 bg-black/50 rounded-full text-white hover:bg-[#f7bd2d] transition-colors"
+                  >
+                    {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                  </button>
+                  <div className="text-white text-sm font-medium">
+                    Click para ver video completo
+                  </div>
+                </div>
+
+                <div className="absolute bottom-4 right-4 bg-[#f7bd2d] text-[#030d41] px-3 py-1 rounded-full text-sm font-semibold">
+                  2:45
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="absolute right-0 bottom-0 left-0 z-[-1] h-full w-full bg-[url(/images/video/shape.svg)] bg-cover bg-center bg-no-repeat">
-            {/* <div className="absolute bottom-0 left-0 right-0 z-[-1] "> */}
-            {/* <img src="/images/video/shape.svg" alt="shape" className="w-full" /> */}
-          </div>
+        <div className="absolute inset-0 overflow-hidden z-0">
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-[#f7bd2d] opacity-30 animate-float"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                width: `${Math.random() * 15 + 5}px`,
+                height: `${Math.random() * 15 + 5}px`,
+                animationDuration: `${Math.random() * 15 + 10}s`,
+                animationDelay: `${Math.random() * 5}s`
+              }}
+            />
+          ))}
         </div>
       </section>
 
-      <VideoModal
-        isOpen={isOpen}
-        onClose={() => setOpen(false)}
-        channel="youtube"
-        videoId="L61p2uyiMSo"
-      />
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md">
+          <div className="relative w-full max-w-4xl mx-4">
+            <button
+              onClick={() => setModalOpen(false)}
+              className="absolute -top-12 right-0 text-white hover:text-[#f7bd2d] transition-colors z-10"
+            >
+              <X size={32} />
+            </button>
+
+            <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+              <video
+                className="w-full h-full object-contain"
+                controls
+                autoPlay
+                src="/sample-video.mp4"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes float {
+          0% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-15px) rotate(5deg);
+          }
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+        }
+        @keyframes pulse-slow {
+          0%, 100% {
+            opacity: 0.2;
+          }
+          50% {
+            opacity: 0.3;
+          }
+        }
+        .animate-float {
+          animation: float 12s ease-in-out infinite;
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 6s ease-in-out infinite;
+        }
+      `}</style>
     </>
   );
-};
+}
