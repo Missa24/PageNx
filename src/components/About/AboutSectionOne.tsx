@@ -1,4 +1,7 @@
-import { Code, Globe, Mail, Cpu } from 'lucide-react';
+"use client"
+import { Code, Globe, Mail, Cpu, ArrowRight } from 'lucide-react';
+import { useRef, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const services = [
   {
@@ -24,70 +27,138 @@ const services = [
 ];
 
 const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
-  const isEven = index % 2 === 0;
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <div className="relative mb-20 group">
-      {/* Efecto de borde brillante */}
-      <div className={`absolute -inset-1 rounded-lg bg-gradient-to-r ${isEven ? 'from-[#f7bd2d] to-[#ffd84d]' : 'from-[#030d41] to-[#1a2b75]'} blur opacity-30 group-hover:opacity-50 transition duration-500`}></div>
-
-      {/* Tarjeta principal */}
-      <div className={`relative w-full md:w-11/12 h-72 ${isEven ? 'bg-[#030d41] ml-auto' : 'bg-[#030d41] mr-auto'} rounded-xl flex items-center justify-center p-8 z-10 overflow-hidden border border-[#f7bd2d]/20`}>
-        {/* Patrón de fondo sutil */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-32 h-32 border-2 border-[#f7bd2d] rounded-full transform -translate-x-16 -translate-y-16"></div>
-          <div className="absolute bottom-0 right-0 w-32 h-32 border-2 border-[#f7bd2d] rounded-full transform translate-x-16 translate-y-16"></div>
-        </div>
-
-        {/* Elemento decorativo */}
-        <div className={`absolute ${isEven ? '-left-12 top-8' : '-right-12 top-8'} w-24 h-24 bg-[#f7bd2d] rounded-full opacity-20 group-hover:opacity-30 transition duration-500`}></div>
-
-        <div className="text-center relative z-20">
-          <div className="bg-gradient-to-br from-[#f7bd2d] to-[#ffd84d] p-4 rounded-full inline-flex items-center justify-center mb-6 transform group-hover:scale-110 transition duration-300">
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: index * 0.2 }}
+      className="relative mb-16 bg-gradient-to-br from-[#030d41] to-[#0a1a5f] rounded-2xl p-8 shadow-2xl border border-[#f7bd2d]/20"
+    >
+      <div className="flex flex-col items-center text-center">
+        <div className="inline-flex items-center justify-center p-2 rounded-full bg-[#030d41] mb-6 shadow-lg border border-[#f7bd2d]/30">
+          <div className="bg-gradient-to-br from-[#f7bd2d] to-[#ffd84d] p-3 rounded-full text-[#030d41]">
             {service.icon}
           </div>
-          <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-[#f7bd2d] transition duration-300">{service.title}</h3>
-          <p className="text-white/80">{service.description}</p>
         </div>
-
-        {/* Efecto de brillo al pasar el mouse */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#f7bd2d]/5 opacity-0 group-hover:opacity-100 transition duration-500 rounded-xl"></div>
+        
+        <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
+          {service.title}
+        </h3>
+        
+        <p className="text-white/90 leading-relaxed mb-6 max-w-md">
+          {service.description}
+        </p>
+        
+        <button className="group flex items-center px-6 py-3 rounded-full bg-[#f7bd2d] text-[#030d41] font-medium hover:bg-[#ffd84d] transition-all transform hover:scale-105 shadow-lg hover:shadow-xl border border-[#f7bd2d]">
+          Descubrir más
+          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+        </button>
       </div>
 
-      {/* Conector decorativo entre tarjetas */}
       {index < services.length - 1 && (
-        <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-1 h-16 bg-gradient-to-b from-[#f7bd2d] to-transparent"></div>
+        <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-1 h-16 bg-gradient-to-b from-[#f7bd2d] to-transparent">
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-[#f7bd2d] rounded-full animate-pulse border-2 border-[#030d41]"></div>
+        </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
 const AboutSectionOne = () => {
   return (
-    <section id="services" className="py-16 md:py-20 lg:py-28 bg-gradient-to-b from-[#030d41] to-[#0a1a66] relative overflow-hidden">
-      {/* Elementos decorativos de fondo */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-10">
+    <section id="services" className="py-20 md:py-28 lg:py-36 bg-gradient-to-b from-[#030d41] to-[#0a1a5f] relative overflow-hidden">
+      <div className="absolute inset-0 opacity-10">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 border-4 border-[#f7bd2d] rounded-full"></div>
         <div className="absolute bottom-1/3 right-1/4 w-48 h-48 border-4 border-[#f7bd2d] rounded-full"></div>
         <div className="absolute top-1/2 left-1/3 w-32 h-32 border-4 border-[#f7bd2d] rounded-full"></div>
       </div>
 
+      <div className="absolute inset-0">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-[#f7bd2d] rounded-full opacity-60"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `float ${5 + Math.random() * 5}s infinite ease-in-out`
+            }}
+          ></div>
+        ))}
+      </div>
+
       <div className="container px-4 mx-auto relative z-10">
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Nuestros <span className="text-[#f7bd2d]">Servicios</span>
-          </h2>
-          <p className="text-xl text-white/80 max-w-3xl mx-auto">
+          <div className="inline-block relative mb-6">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
+            >
+              Nuestros <span className="text-[#f7bd2d] relative">Servicios
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#f7bd2d] to-transparent"></span>
+              </span>
+            </motion.h2>
+          </div>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-xl text-white/80 max-w-3xl mx-auto mt-6 leading-relaxed"
+          >
             Soluciones tecnológicas de alta calidad diseñadas para impulsar tu negocio hacia el éxito
-          </p>
+          </motion.p>
         </div>
 
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        @keyframes ping {
+          0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+          80%, 100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-ping {
+          animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+      `}</style>
     </section>
   );
 };

@@ -51,25 +51,20 @@ const Header = () => {
             <div className="w-60 max-w-full px-4 xl:mr-12">
               <Link href="/" className={`header-logo block w-full ${sticky ? "py-5 lg:py-2" : "py-8"}`}>
                 <div className="flex items-center space-x-2">
-                  {/* Imagen en modo claro */}
                   <Image
-                    src="/images/noxun.jpg"
+                    src="/images/noxun.png"
                     alt="logo"
                     width={100}
                     height={60}
                     className="w-[80px] h-auto dark:hidden"
                   />
-
-                  {/* Imagen en modo oscuro */}
                   <Image
-                    src="/images/noxun.jpg"
+                    src="/images/noxun.png"
                     alt="logo dark"
                     width={100}
                     height={60}
                     className="w-[80px] h-auto hidden dark:block"
                   />
-
-                  {/* Texto */}
                   <span className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${sticky ? "text-[#030d41]" : "text-white"}`}>
                     Noxun
                   </span>
@@ -101,18 +96,21 @@ const Header = () => {
                 </button>
                 <nav
                   id="navbarCollapse"
-                  className={`navbar border-body-color/50 dark:border-body-color/20 dark:bg-dark absolute right-0 z-30 w-[250px] rounded border-[.5px] bg-white px-6 py-4 duration-300 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${navbarOpen
-                    ? "visibility top-full opacity-100"
-                    : "invisible top-[120%] opacity-0"
-                    }`}
+                  className={`navbar border-body-color/50 dark:border-body-color/20 duration-300 right-0 z-30 w-[250px] rounded border-[.5px] px-6 py-4 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100
+    ${navbarOpen ? "visibility top-full opacity-100" : "invisible top-[120%] opacity-0"}
+    ${sticky
+                      ? "dark:bg-[#f7bd2d] dark:shadow-sticky-dark shadow-sticky fixed z-9999 bg-white/80 backdrop-blur-xs transition"
+                      : "absolute bg-white dark:bg-dark "}
+  `}
                 >
+
                   <ul className="block lg:flex lg:space-x-12">
                     {menuData.map((menuItem, index) => (
                       <li key={index} className="group relative">
                         {menuItem.path ? (
                           <Link
                             href={menuItem.path}
-                            className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${sticky ? "text-[#030d41]" : "text-white"
+                            className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${sticky ? "dark:text-[#030d41] text-black" : "dark:text-white text-[#030d41]"
                               }`}
 
                           >
@@ -158,9 +156,7 @@ const Header = () => {
                 </nav>
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
-                <div>
-                  <ThemeToggler />
-                </div>
+
               </div>
             </div>
           </div>

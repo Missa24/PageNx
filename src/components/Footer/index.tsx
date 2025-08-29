@@ -16,7 +16,7 @@ const Footer = () => {
                   <div className="flex items-center">
                     <div className="relative mr-3 h-16 w-28 rounded-lg bg-tangaroa/10 p-2">
                       <Image
-                        src="/images/noxun.jpg"
+                        src="/images/noxun.png"
                         alt="logo de Noxun"
                         className="object-contain"
                         fill

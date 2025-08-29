@@ -25,7 +25,6 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center justify-center bg-[#030d41]">
-      {/* Video de fondo con overlay */}
       <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
@@ -38,12 +37,10 @@ const Hero = () => {
           <source src="images/video/hero_video.mp4" type="video/mp4" />
         </video>
 
-        {/* Overlay para mejorar contraste */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030d41]/70 via-[#030d41]/40 to-[#030d41]/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030d41]/80 via-[#030d41]/50 to-[#030d41]/80"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#030d41]/50 to-[#0a1a66]/30"></div>
       </div>
 
-      {/* Control de video */}
       <button
         onClick={toggleVideo}
         className="absolute bottom-6 right-6 z-30 flex items-center justify-center w-12 h-12 rounded-full bg-[#f7bd2d]/20 backdrop-blur-sm border border-[#f7bd2d]/30 text-[#f7bd2d] hover:bg-[#f7bd2d]/30 transition-all"
@@ -52,7 +49,6 @@ const Hero = () => {
         {isVideoPlaying ? <Pause size={16} /> : <Play size={16} />}
       </button>
 
-      {/* Partículas flotantes */}
       <div className="absolute inset-0 z-5">
         {[...Array(20)].map((_, i) => (
           <motion.div
@@ -79,7 +75,6 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* Efectos de luz */}
       <div className="absolute inset-0 z-1 overflow-hidden">
         <motion.div
           className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-[#f7bd2d]/10 blur-3xl"
@@ -106,16 +101,7 @@ const Hero = () => {
         />
       </div>
 
-      {/* Contenido principal */}
       <div className="container relative z-20 px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-8"
-        >
-
-        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -137,27 +123,6 @@ const Hero = () => {
           Creamos experiencias digitales excepcionales que conectan con tu audiencia
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <Link
-            href="/proyectos"
-            className="group relative px-8 py-4 bg-[#f7bd2d] text-[#030d41] font-medium rounded-full hover:bg-[#ffd34e] transition-all flex items-center justify-center gap-2 overflow-hidden"
-          >
-            <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-            Explorar proyectos
-            <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
-          <Link
-            href="/contacto"
-            className="px-8 py-4 border border-[#f7bd2d]/40 text-[#f7bd2d] font-medium rounded-full hover:bg-[#f7bd2d]/10 transition-all backdrop-blur-sm"
-          >
-            Contactar ahora
-          </Link>
-        </motion.div>
 
         <motion.div
           className="mt-24 flex justify-center"
@@ -168,7 +133,6 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Efecto de brillo central */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-[#f7bd2d]/5 rounded-full blur-[100px] z-1"></div>
     </section>
   );
