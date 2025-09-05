@@ -3,13 +3,39 @@ import Image from "next/image";
 import Link from "next/link";
 import { Facebook, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
+const menuData = [
+  {
+    id: 1,
+    title: "Inicio",
+    path: "/",
+    newTab: false,
+  },
+  {
+    id: 2,
+    title: "Nuestros Servicios",
+    path: "#ourservice",
+    newTab: false,
+  },
+  {
+    id: 33,
+    title: "Acerca de nosotros",
+    path: "#about",
+    newTab: false,
+  },
+  {
+    id: 3,
+    title: "Contactanos",
+    path: "#contact",
+    newTab: false,
+  },
+];
+
 const Footer = () => {
   return (
     <>
       <footer className="relative z-10 bg-saffron pt-16 text-tangaroa md:pt-20 lg:pt-24">
         <div className="container mx-auto px-4">
           <div className="-mx-4 flex flex-wrap">
-            {/* Columna 1: Logo y descripción */}
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12">
               <div className="mb-12 max-w-[360px] lg:mb-16">
                 <Link href="/" className="mb-8 inline-block">
@@ -65,7 +91,7 @@ const Footer = () => {
                     </svg>
                   </a>
                   <a
-                    href="/contact"
+                    href="#contact"
                     aria-label="Contacto"
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-tangaroa text-saffron transition-all hover:scale-110"
                   >
@@ -74,92 +100,31 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-
-            {/* Columna 2: Enlaces útiles */}
-            <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
+            <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-3/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
                 <h2 className="mb-10 text-xl font-bold text-tangaroa">
-                  Enlaces Útiles
+                  Navegación
                 </h2>
                 <ul>
-                  <li>
-                    <Link
-                      href="/blog"
-                      className="mb-4 inline-block text-base text-tangaroa/80 duration-300 hover:text-tangaroa hover:underline"
-                    >
-                      Blog
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/services"
-                      className="mb-4 inline-block text-base text-tangaroa/80 duration-300 hover:text-tangaroa hover:underline"
-                    >
-                      Servicios
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/projects"
-                      className="mb-4 inline-block text-base text-tangaroa/80 duration-300 hover:text-tangaroa hover:underline"
-                    >
-                      Proyectos
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/about"
-                      className="mb-4 inline-block text-base text-tangaroa/80 duration-300 hover:text-tangaroa hover:underline"
-                    >
-                      Nosotros
-                    </Link>
-                  </li>
+                  {menuData.map((item) => (
+                    <li key={item.id}>
+                      <Link
+                        href={item.path}
+                        className="mb-4 inline-block text-base text-tangaroa/80 duration-300 hover:text-tangaroa hover:underline"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
-
-            {/* Columna 3: Términos */}
-            <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-tangaroa">
-                  Términos
-                </h2>
-                <ul>
-                  <li>
-                    <Link
-                      href="/terms"
-                      className="mb-4 inline-block text-base text-tangaroa/80 duration-300 hover:text-tangaroa hover:underline"
-                    >
-                      Términos de Servicio
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/privacy"
-                      className="mb-4 inline-block text-base text-tangaroa/80 duration-300 hover:text-tangaroa hover:underline"
-                    >
-                      Política de Privacidad
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/cookies"
-                      className="mb-4 inline-block text-base text-tangaroa/80 duration-300 hover:text-tangaroa hover:underline"
-                    >
-                      Política de Cookies
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Columna 4: Contacto */}
-            <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
+            <div className="w-full px-4 md:w-1/2 lg:w-5/12 xl:w-3/12">
               <div className="mb-12 lg:mb-16">
                 <h2 className="mb-10 text-xl font-bold text-tangaroa">
                   Contacto
                 </h2>
-                <ul>
+                <ul className="mb-6">
                   <li className="mb-4 flex items-center">
                     <Phone size={18} className="mr-3 text-tangaroa" />
                     <span className="text-base text-tangaroa/80">+591 64235604</span>
@@ -176,16 +141,15 @@ const Footer = () => {
                     </span>
                   </li>
                 </ul>
-                
-                {/* Mapa de Google */}
-                <div className="mt-6 rounded-lg overflow-hidden shadow-lg">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1912.7821616107906!2d-68.119569!3d-16.497584!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915f21b21dee7469%3A0x960d6b372d219f57!2sTorre%20Goya!5e0!3m2!1ses-419!2sbo!4v1756182395409!5m2!1ses-419!2sbo" 
-                    width="100%" 
-                    height="200" 
-                    style={{ border: 0 }} 
-                    allowFullScreen 
-                    loading="lazy" 
+
+                <div className="rounded-lg overflow-hidden shadow-lg border-2 border-tangaroa/20">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1912.7821616107906!2d-68.119569!3d-16.497584!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915f21b21dee7469%3A0x960d6b372d219f57!2sTorre%20Goya!5e0!3m2!1ses-419!2sbo!4v1756182395409!5m2!1ses-419!2sbo"
+                    width="100%"
+                    height="150"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     title="Ubicación de Noxun en Torre Goya, La Paz, Bolivia"
                     className="rounded-lg"
@@ -195,10 +159,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Separador */}
           <div className="h-px w-full bg-gradient-to-r from-transparent via-tangaroa/30 to-transparent"></div>
-
-          {/* Copyright */}
           <div className="py-8">
             <p className="text-center text-base text-tangaroa/80">
               © {new Date().getFullYear()} Noxun Engineering. Todos los derechos reservados. |
@@ -215,7 +176,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Elementos decorativos */}
         <div className="absolute right-0 top-14 z-[-1]">
           <svg
             width="55"

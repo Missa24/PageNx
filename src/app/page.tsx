@@ -1,20 +1,20 @@
-import AboutSectionOne from "@/components/About/AboutSectionOne";
-import AboutSectionTwo from "@/components/About/AboutSectionTwo";
-import Blog from "@/components/Blog";
-import Brands from "@/components/Brands";
+import OurService from "@/components/Contact/OurService";
+import OurClients from "@/components/Clients";
 import ScrollUp from "@/components/Common/ScrollUp";
-import Contact from "@/components/Contact";
 import Features from "@/components/Features";
 import Hero from "@/components/Hero";
-import Pricing from "@/components/Pricing";
-import Testimonials from "@/components/Testimonials";
-import Video from "@/components/Video";
-import Companies from "@/components/Companies/index"
 import { Metadata } from "next";
+import AboutSection from "@/components/About";
+import ContactSection from "@/components/Contact/ContactSection";
+import WebsiteViewer  from "@/components/webSites/webSites";
+
+
+ 
+
 
 export const metadata: Metadata = {
-  title: "Free Next.js Template for Startup and SaaS",
-  description: "This is Home for Startup Nextjs Template",
+  title: "Noxun S.R.L.",
+  description: "",
   // other metadata
 };
 
@@ -23,17 +23,12 @@ export default function Home() {
     <>
       <ScrollUp />
       <Hero />
-      <Brands />
+      <OurClients />
       <Features />
-      <Video />
-
-      <AboutSectionOne />
-      <AboutSectionTwo />
-      {/** <Testimonials />
-      <Pricing />
-      <Blog />
-      
-      <Contact />*/}
+      <AboutSection />
+      <OurService />
+      <WebsiteViewer />
+      <ContactSection />
     </>
   );
 }

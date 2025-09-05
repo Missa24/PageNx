@@ -8,7 +8,7 @@ import { Inter } from "next/font/google";
 import "../styles/index.css";
 
 import { Providers } from "./providers";
-import PageLoader from "@/components/PageLoader"; // IMPORTA tu loader aquí
+import PageLoader from "@/components/PageLoader"; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +22,7 @@ export default function RootLayout({
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // Mostrar loader 2 segundos (ajusta a tu gusto)
+    }, 2000); 
 
     return () => clearTimeout(timer);
   }, []);

@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 
-// IMAGES DATA FOR CAROUSEL
 interface Data {
   image: string;
 }
@@ -58,8 +57,6 @@ const data: Data[] = [
   },
 ]
 
-
-// CAROUSEL SETTINGS
 export default class MultipleItems extends Component {
   render() {
     const settings = {
