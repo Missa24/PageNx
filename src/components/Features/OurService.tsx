@@ -36,7 +36,6 @@ const services = [
 
 const downloadFile = async (url: string, filename: string) => {
   try {
-    // Verificar si el archivo existe
     const response = await fetch(url, { method: 'HEAD' });
 
     if (!response.ok) {
@@ -44,7 +43,6 @@ const downloadFile = async (url: string, filename: string) => {
       return;
     }
 
-    // Crear enlace para descarga
     const link = document.createElement('a');
     link.href = url;
     link.download = filename;
