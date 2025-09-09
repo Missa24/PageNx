@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Facebook, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 
 const menuData = [
   {
@@ -33,28 +33,31 @@ const menuData = [
 const Footer = () => {
   return (
     <>
-      <footer className="relative z-10 bg-saffron pt-16 text-tangaroa md:pt-20 lg:pt-24">
+      <footer className="bg-saffron text-tangaroa relative z-10 pt-16 md:pt-20 lg:pt-24">
         <div className="container mx-auto px-4">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12">
               <div className="mb-12 max-w-[360px] lg:mb-16">
                 <Link href="/" className="mb-8 inline-block">
                   <div className="flex items-center">
-                    <div className="relative mr-3 h-16 w-28 rounded-lg bg-tangaroa/10 p-2">
+                    <div className="bg-tangaroa/10 relative mr-3 h-16 w-28 rounded-lg p-2">
                       <Image
                         src="/images/noxun.png"
                         alt="logo de Noxun"
                         className="object-contain"
                         fill
-                        style={{ objectFit: 'contain' }}
+                        style={{ objectFit: "contain" }}
                       />
                     </div>
-                    <span className="text-2xl font-bold text-tangaroa">Noxun</span>
+                    <span className="text-tangaroa text-2xl font-bold">
+                      Noxun
+                    </span>
                   </div>
                 </Link>
-                <p className="mb-9 text-base leading-relaxed text-tangaroa/80">
-                  Soluciones de ingeniería innovadoras para impulsar tu negocio hacia el futuro.
-                  Calidad, precisión y excelencia en cada proyecto.
+                <p className="text-tangaroa/80 mb-9 text-base leading-relaxed">
+                  Soluciones de ingeniería innovadoras para impulsar tu negocio
+                  hacia el futuro. Calidad, precisión y excelencia en cada
+                  proyecto.
                 </p>
                 <div className="flex items-center space-x-4">
                   <a
@@ -62,7 +65,7 @@ const Footer = () => {
                     aria-label="Facebook"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-tangaroa text-saffron transition-all hover:scale-110"
+                    className="bg-tangaroa text-saffron flex h-10 w-10 items-center justify-center rounded-full transition-all hover:scale-110"
                   >
                     <Facebook size={20} />
                   </a>
@@ -71,7 +74,7 @@ const Footer = () => {
                     aria-label="LinkedIn"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-tangaroa text-saffron transition-all hover:scale-110"
+                    className="bg-tangaroa text-saffron flex h-10 w-10 items-center justify-center rounded-full transition-all hover:scale-110"
                   >
                     <Linkedin size={20} />
                   </a>
@@ -80,7 +83,7 @@ const Footer = () => {
                     aria-label="TikTok"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-tangaroa text-saffron transition-all hover:scale-110"
+                    className="bg-tangaroa text-saffron flex h-10 w-10 items-center justify-center rounded-full transition-all hover:scale-110"
                   >
                     <svg
                       className="h-5 w-5"
@@ -93,7 +96,7 @@ const Footer = () => {
                   <a
                     href="#contact"
                     aria-label="Contacto"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-tangaroa text-saffron transition-all hover:scale-110"
+                    className="bg-tangaroa text-saffron flex h-10 w-10 items-center justify-center rounded-full transition-all hover:scale-110"
                   >
                     <Mail size={20} />
                   </a>
@@ -102,7 +105,7 @@ const Footer = () => {
             </div>
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-3/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-tangaroa">
+                <h2 className="text-tangaroa mb-10 text-xl font-bold">
                   Navegación
                 </h2>
                 <ul>
@@ -110,7 +113,7 @@ const Footer = () => {
                     <li key={item.id}>
                       <Link
                         href={item.path}
-                        className="mb-4 inline-block text-base text-tangaroa/80 duration-300 hover:text-tangaroa hover:underline"
+                        className="text-tangaroa/80 hover:text-tangaroa mb-4 inline-block text-base duration-300 hover:underline"
                       >
                         {item.title}
                       </Link>
@@ -121,28 +124,33 @@ const Footer = () => {
             </div>
             <div className="w-full px-4 md:w-1/2 lg:w-5/12 xl:w-3/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-tangaroa">
+                <h2 className="text-tangaroa mb-10 text-xl font-bold">
                   Contacto
                 </h2>
                 <ul className="mb-6">
                   <li className="mb-4 flex items-center">
-                    <Phone size={18} className="mr-3 text-tangaroa" />
-                    <span className="text-base text-tangaroa/80">+591 64235604</span>
+                    <Phone size={18} className="text-tangaroa mr-3" />
+                    <span className="text-tangaroa/80 text-base">
+                      +591 70140353 - +591 71525335
+                    </span>
                   </li>
                   <li className="mb-4 flex items-center">
-                    <Mail size={18} className="mr-3 text-tangaroa" />
-                    <span className="text-base text-tangaroa/80">info@noxun.com</span>
+                    <Mail size={18} className="text-tangaroa mr-3" />
+                    <span className="text-tangaroa/80 text-base">
+                      info@noxun.com
+                    </span>
                   </li>
                   <li className="flex items-start">
-                    <MapPin size={18} className="mr-3 mt-1 text-tangaroa" />
-                    <span className="text-base text-tangaroa/80">
-                      Torre Goya<br />
+                    <MapPin size={18} className="text-tangaroa mt-1 mr-3" />
+                    <span className="text-tangaroa/80 text-base">
+                      Z. Miraflores Av. Pasoskanki Torre Goya N° 1578, Of. 2
+                      <br />
                       La Paz, Bolivia
                     </span>
                   </li>
                 </ul>
 
-                <div className="rounded-lg overflow-hidden shadow-lg border-2 border-tangaroa/20">
+                <div className="border-tangaroa/20 overflow-hidden rounded-lg border-2 shadow-lg">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1912.7821616107906!2d-68.119569!3d-16.497584!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915f21b21dee7469%3A0x960d6b372d219f57!2sTorre%20Goya!5e0!3m2!1ses-419!2sbo!4v1756182395409!5m2!1ses-419!2sbo"
                     width="100%"
@@ -159,11 +167,11 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-tangaroa/30 to-transparent"></div>
+          <div className="via-tangaroa/30 h-px w-full bg-gradient-to-r from-transparent to-transparent"></div>
           <div className="py-8">
-            <p className="text-center text-base text-tangaroa/80">
-              © {new Date().getFullYear()} Noxun Engineering. Todos los derechos reservados. |
-              Desarrollado por {" "}
+            <p className="text-tangaroa/80 text-center text-base">
+              © {new Date().getFullYear()} Noxun Engineering. Todos los
+              derechos reservados. | Desarrollado por{" "}
               <a
                 href="https://noxun.com"
                 target="_blank"
@@ -176,7 +184,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="absolute right-0 top-14 z-[-1]">
+        <div className="absolute top-14 right-0 z-[-1]">
           <svg
             width="55"
             height="99"
@@ -184,7 +192,14 @@ const Footer = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <circle opacity="0.8" cx="49.5" cy="49.5" r="49.5" fill="#030d41" fillOpacity="0.1" />
+            <circle
+              opacity="0.8"
+              cx="49.5"
+              cy="49.5"
+              r="49.5"
+              fill="#030d41"
+              fillOpacity="0.1"
+            />
             <mask
               id="mask0_94:899"
               style={{ maskType: "alpha" }}

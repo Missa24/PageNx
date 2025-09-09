@@ -1,7 +1,24 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Play, X, ChevronRight, Users, Code, Globe, Shield, Pause, Target, Heart, Star, Award, Clock, Zap, CheckCircle } from "lucide-react";
+import {
+  Play,
+  X,
+  ChevronRight,
+  Users,
+  Code,
+  Globe,
+  Shield,
+  Award,
+  CheckCircle,
+} from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 export default function AboutSection() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -13,30 +30,41 @@ export default function AboutSection() {
     {
       icon: <Code className="h-8 w-8" />,
       title: "Desarrollo a Medida",
-      description: "Soluciones tecnológicas personalizadas para cada institución"
+      description:
+        "Soluciones tecnológicas personalizadas para cada institución",
     },
     {
       icon: <Globe className="h-8 w-8" />,
       title: "Tecnología Moderna",
-      description: "Implementamos las últimas tecnologías para garantizar eficiencia"
+      description:
+        "Implementamos las últimas tecnologías para garantizar eficiencia",
     },
     {
       icon: <Shield className="h-8 w-8" />,
       title: "Seguridad Garantizada",
-      description: "Protegemos tus datos con los más altos estándares de seguridad"
+      description:
+        "Protegemos tus datos con los más altos estándares de seguridad",
     },
     {
       icon: <Users className="h-8 w-8" />,
       title: "Soporte Continuo",
-      description: "Acompañamiento durante y después de la implementación"
-    }
+      description: "Acompañamiento durante y después de la implementación",
+    },
   ];
 
   const stats = [
-    { value: "50+", label: "Proyectos Completados", icon: <Target className="h-5 w-5" /> },
-    { value: "30+", label: "Clientes Satisfechos", icon: <Heart className="h-5 w-5" /> },
-    { value: "10+", label: "Años de Experiencia", icon: <Award className="h-5 w-5" /> },
-    { value: "24/7", label: "Soporte Técnico", icon: <Clock className="h-5 w-5" /> }
+    {
+      value: "35+",
+      label: "Proyectos Completados",
+    },
+    {
+      value: "3+",
+      label: "Años de Experiencia",
+    },
+    {
+      value: "24/7",
+      label: "Soporte Continuo",
+    },
   ];
 
   useEffect(() => {
@@ -60,7 +88,10 @@ export default function AboutSection() {
 
   return (
     <>
-      <section className="relative py-16 md:py-20 lg:py-28 bg-[#030d41] overflow-hidden" id="about">
+      <section
+        className="relative overflow-hidden bg-[#030d41] py-16 md:py-20 lg:py-28"
+        id="about"
+      >
         <div className="absolute inset-0 z-0 overflow-hidden">
           <video
             ref={videoRef}
@@ -68,7 +99,7 @@ export default function AboutSection() {
             muted
             loop
             playsInline
-            className="w-full h-full object-cover opacity-20"
+            className="h-full w-full object-cover opacity-20"
           >
             <source src="/images/about/nosotros.mp4" type="video/mp4" />
           </video>
@@ -79,7 +110,7 @@ export default function AboutSection() {
           {[...Array(20)].map((_, i) => (
             <div
               key={i}
-              className="absolute rounded-full bg-[#f7bd2d] animate-float"
+              className="animate-float absolute rounded-full bg-[#f7bd2d]"
               style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
@@ -87,210 +118,202 @@ export default function AboutSection() {
                 height: `${Math.random() * 10 + 5}px`,
                 opacity: Math.random() * 0.3 + 0.1,
                 animationDuration: `${Math.random() * 15 + 10}s`,
-                animationDelay: `${Math.random() * 5}s`
+                animationDelay: `${Math.random() * 5}s`,
               }}
             />
           ))}
         </div>
 
-        <div className="container relative z-10 mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-[#f7bd2d]/10 mb-6">
-              <span className="text-[#f7bd2d] text-sm font-semibold">Nuestra Empresa</span>
+        <div className="relative z-10 container mx-auto px-4">
+          <div className="mb-16 text-center">
+            <div className="mb-6 inline-flex items-center justify-center rounded-full bg-[#f7bd2d]/10 px-4 py-2">
+              <span className="text-sm font-semibold text-[#f7bd2d]">
+                Nuestra Empresa
+              </span>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
               Acerca de <span className="text-[#f7bd2d]">NOXUN</span>
             </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              Somos especialistas en desarrollo de sistemas a medida a través de herramientas tecnológicas adaptadas a las necesidades de cada institución.
+            <p className="mx-auto max-w-3xl text-xl text-slate-300">
+              Somos especialistas en desarrollo de sistemas a medida a través de
+              herramientas tecnológicas adaptadas a las necesidades de cada
+              institución.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-[#0a1442] rounded-2xl p-6 border border-[#f7bd2d]/20 hover:border-[#f7bd2d]/40 transition-all duration-300 hover:scale-105 group"
+                className="group rounded-2xl border border-[#f7bd2d]/20 bg-[#0a1442] p-6 transition-all duration-300 hover:scale-105 hover:border-[#f7bd2d]/40"
               >
-                <div className="w-14 h-14 bg-[#f7bd2d]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#f7bd2d]/20 transition-colors">
-                  <div className="text-[#f7bd2d]">
-                    {feature.icon}
-                  </div>
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#f7bd2d]/10 transition-colors group-hover:bg-[#f7bd2d]/20">
+                  <div className="text-[#f7bd2d]">{feature.icon}</div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                <h3 className="mb-2 text-xl font-bold text-white">
+                  {feature.title}
+                </h3>
                 <p className="text-slate-300">{feature.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-[#0a1442] rounded-3xl p-8 mb-16 border border-[#f7bd2d]/20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="mb-16 rounded-3xl border border-[#f7bd2d]/20 bg-[#0a1442] p-8">
+            <div className="grid grid-cols-3 gap-6 md:grid-cols-3">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-[#f7bd2d]/10 rounded-full mb-4">
-                    <div className="text-[#f7bd2d]">
-                      {stat.icon}
-                    </div>
+                  <div className="mb-4 text-3xl font-bold text-white">
+                    {stat.value}
                   </div>
-                  <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                  <div className="text-slate-300 text-sm">{stat.label}</div>
+                  <div className="text-sm text-slate-300">{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <h3 className="text-3xl font-bold text-white mb-6">Nuestra <span className="text-[#f7bd2d]">Filosofía</span></h3>
-              <p className="text-slate-300 mb-6 text-lg">
-                En NOXUN creemos que la tecnología debe ser un facilitador, no una barrera.
-                Por eso desarrollamos soluciones intuitivas, poderosas y adaptadas específicamente
-                a las necesidades de cada cliente.
-              </p>
-
-              <div className="space-y-4 mb-8">
-                {[
-                  "Soluciones 100% personalizadas",
-                  "Tecnología de vanguardia",
-                  "Soporte técnico especializado",
-                  "Desarrollo ágil y eficiente"
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-[#f7bd2d] mr-3" />
-                    <span className="text-slate-300">{item}</span>
-                  </div>
-                ))}
+          <div className="grid grid-cols-1 items-center gap-10">
+            <div className="relative rounded-2xl border border-[#f7bd2d]/20 bg-[#0a1442] p-8">
+              <div className="mb-8 text-center">
+                <div className="mx-auto mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#f7bd2d]/10">
+                  <Award className="h-8 w-8 text-[#f7bd2d]" />
+                </div>
+                <h3 className="mb-2 text-3xl font-bold text-white">
+                  Nuestra <span className="text-[#f7bd2d]">Filosofía</span>
+                </h3>
+                <p className="mx-auto max-w-3xl text-lg text-slate-300">
+                  En NOXUN creemos que la tecnología debe ser un facilitador, no
+                  una barrera. Por eso desarrollamos soluciones intuitivas,
+                  poderosas y adaptadas específicamente a las necesidades de
+                  cada cliente.
+                </p>
               </div>
 
-              <button
-                onClick={() => setModalOpen(true)}
-                className="bg-[#f7bd2d] text-[#030d41] font-bold px-8 py-4 rounded-xl hover:bg-[#ffd34e] transition-colors flex items-center"
-              >
-                Conoce más sobre nosotros
-                <ChevronRight className="ml-2 h-5 w-5" />
-              </button>
-            </div>
-
-            <div className="relative">
-              <div className="bg-[#0a1442] rounded-2xl p-8 border border-[#f7bd2d]/20">
-                <div className="text-center mb-6">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-[#f7bd2d]/10 rounded-full mb-4">
-                    <Zap className="h-8 w-8 text-[#f7bd2d]" />
+              <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-4 text-xl font-semibold text-[#f7bd2d]">
+                    Nuestros Pilares
+                  </h4>
+                  <div className="space-y-4">
+                    {[
+                      "Soluciones 100% personalizadas",
+                      "Tecnología de vanguardia",
+                      "Soporte técnico especializado",
+                      "Desarrollo ágil y eficiente",
+                    ].map((item, index) => (
+                      <div key={index} className="flex items-center">
+                        <CheckCircle className="mr-3 h-5 w-5 text-[#f7bd2d]" />
+                        <span className="text-slate-300">{item}</span>
+                      </div>
+                    ))}
                   </div>
-                  <h4 className="text-2xl font-bold text-white mb-2">Innovación Constante</h4>
+                </div>
+
+                <div>
+                  <h4 className="mb-4 text-xl font-semibold text-[#f7bd2d]">
+                    Nuestro Compromiso
+                  </h4>
+                  <p className="mb-4 text-slate-300">
+                    Trabajamos con dedicación para ofrecer soluciones que
+                    superen las expectativas de nuestros clientes, garantizando
+                    calidad, innovación y excelencia en cada proyecto.
+                  </p>
                   <p className="text-slate-300">
-                    Nos mantenemos a la vanguardia tecnológica para ofrecer siempre las mejores soluciones.
+                    Nuestro equipo especializado combina experiencia técnica con
+                    comprensión profunda de las necesidades institucionales para
+                    entregar resultados excepcionales.
                   </p>
                 </div>
-
-                <div className="bg-[#030d41] rounded-xl p-4 border border-[#f7bd2d]/10">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-slate-300">Desarrollo Web</span>
-                    <span className="text-[#f7bd2d] font-bold">95%</span>
-                  </div>
-                  <div className="w-full bg-[#0a1442] rounded-full h-2.5">
-                    <div className="bg-[#f7bd2d] h-2.5 rounded-full" style={{ width: '95%' }}></div>
-                  </div>
-
-                  <div className="flex items-center justify-between mt-4 mb-3">
-                    <span className="text-slate-300">Apps Móviles</span>
-                    <span className="text-[#f7bd2d] font-bold">90%</span>
-                  </div>
-                  <div className="w-full bg-[#0a1442] rounded-full h-2.5">
-                    <div className="bg-[#f7bd2d] h-2.5 rounded-full" style={{ width: '90%' }}></div>
-                  </div>
-
-                  <div className="flex items-center justify-between mt-4 mb-3">
-                    <span className="text-slate-300">Cloud Solutions</span>
-                    <span className="text-[#f7bd2d] font-bold">85%</span>
-                  </div>
-                  <div className="w-full bg-[#0a1442] rounded-full h-2.5">
-                    <div className="bg-[#f7bd2d] h-2.5 rounded-full" style={{ width: '85%' }}></div>
-                  </div>
-                </div>
               </div>
 
-              <div className="absolute -top-4 -right-4 w-28 h-28 bg-[#f7bd2d]/10 rounded-full blur-xl z-0"></div>
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-[#f7bd2d]/10 rounded-full blur-xl z-0"></div>
+              <div className="text-center">
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="inline-flex items-center rounded-xl bg-[#f7bd2d] px-8 py-4 font-bold text-[#030d41] transition-colors hover:bg-[#ffd34e]"
+                >
+                  Conoce más sobre nosotros
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </button>
+              </div>
+
+              <div className="absolute -top-4 -right-4 z-0 h-28 w-28 rounded-full bg-[#f7bd2d]/10 blur-xl"></div>
+              <div className="absolute -bottom-4 -left-4 z-0 h-24 w-24 rounded-full bg-[#f7bd2d]/10 blur-xl"></div>
             </div>
           </div>
         </div>
-
-        <button
-          onClick={togglePlay}
-          className="fixed bottom-6 right-6 z-20 p-3 bg-[#030d41] border border-[#f7bd2d]/30 rounded-full text-[#f7bd2d] hover:bg-[#f7bd2d] hover:text-[#030d41] transition-colors shadow-lg"
-        >
-          {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-        </button>
       </section>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
-          <div className="relative w-full max-w-4xl bg-[#030d41] rounded-2xl border-2 border-[#f7bd2d]/30 overflow-hidden max-h-[90vh] overflow-y-auto">
-            <button
-              onClick={() => setModalOpen(false)}
-              className="absolute top-4 right-4 z-10 p-2 bg-[#f7bd2d] text-[#030d41] rounded-full hover:bg-[#ffd34e] transition-colors"
-            >
-              <X size={24} />
-            </button>
+      <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
+        <DialogContent className="max-h-[50vh] max-w-4xl overflow-y-auto border-2 border-[#f7bd2d]/30 bg-[#030d41] p-0 text-white shadow-2xl shadow-[#f7bd2d]/10 md:max-h-[65vh] md:rounded-2xl">
+          <div className="relative">
+            <DialogHeader className="sr-only">
+              <DialogTitle>Más sobre NOXUN</DialogTitle>
+            </DialogHeader>
 
-            <div className="p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-white mb-4">Más sobre <span className="text-[#f7bd2d]">NOXUN</span></h2>
-                <div className="w-20 h-1 bg-[#f7bd2d] mx-auto mb-6"></div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-4 right-4 z-10 rounded-full bg-[#f7bd2d] p-2 text-[#030d41] transition-colors hover:bg-[#ffd34e]"
+              onClick={() => setModalOpen(false)}
+            >
+              <X className="h-5 w-5" />
+            </Button>
+
+            <div className="p-6 md:p-8">
+              <div className="mb-8 text-center">
+                <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">
+                  Más sobre <span className="text-[#f7bd2d]">NOXUN</span>
+                </h2>
+                <div className="mx-auto mb-6 h-1 w-20 bg-[#f7bd2d]"></div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div>
-                  <h3 className="text-xl font-semibold text-[#f7bd2d] mb-4">Nuestra Misión</h3>
-                  <p className="text-slate-300 mb-6">
-                    Desarrollar soluciones tecnológicas innovadoras que impulsen la transformación digital de las instituciones,
-                    optimizando sus procesos y maximizando su eficiencia operativa.
+                  <h3 className="mb-4 text-lg font-semibold text-[#f7bd2d] md:text-xl">
+                    Nuestra Misión
+                  </h3>
+                  <p className="mb-6 text-sm text-slate-300 md:text-base">
+                    Desarrollar soluciones tecnológicas innovadoras que impulsen
+                    la transformación digital de las instituciones, optimizando
+                    sus procesos y maximizando su eficiencia operativa.
                   </p>
 
-                  <h3 className="text-xl font-semibold text-[#f7bd2d] mb-4">Nuestra Visión</h3>
-                  <p className="text-slate-300">
-                    Ser líderes en el desarrollo de software a medida, reconocidos por nuestra capacidad de adaptación
-                    y por generar valor tangible para nuestros clientes.
+                  <h3 className="mb-4 text-lg font-semibold text-[#f7bd2d] md:text-xl">
+                    Nuestra Visión
+                  </h3>
+                  <p className="text-sm text-slate-300 md:text-base">
+                    Ser líderes en el desarrollo de software a medida,
+                    reconocidos por nuestra capacidad de adaptación y por
+                    generar valor tangible para nuestros clientes.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold text-[#f7bd2d] mb-4">¿Por qué elegirnos?</h3>
+                  <h3 className="mb-4 text-lg font-semibold text-[#f7bd2d] md:text-xl">
+                    ¿Por qué elegirnos?
+                  </h3>
                   <ul className="space-y-3">
-                    <li className="flex items-start gap-3 text-slate-300">
-                      <span className="text-[#f7bd2d] mt-1">•</span>
-                      <span>Soluciones personalizadas según necesidades específicas</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-slate-300">
-                      <span className="text-[#f7bd2d] mt-1">•</span>
-                      <span>Tecnologías modernas y escalables</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-slate-300">
-                      <span className="text-[#f7bd2d] mt-1">•</span>
-                      <span>Soporte técnico continuo post-implementación</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-slate-300">
-                      <span className="text-[#f7bd2d] mt-1">•</span>
-                      <span>Equipo especializado con amplia experiencia</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-slate-300">
-                      <span className="text-[#f7bd2d] mt-1">•</span>
-                      <span>Metodologías ágiles para desarrollo eficiente</span>
-                    </li>
+                    {[
+                      "Soluciones personalizadas según necesidades específicas",
+                      "Tecnologías modernas y escalables",
+                      "Soporte técnico continuo post-implementación",
+                      "Equipo especializado con amplia experiencia",
+                      "Metodologías ágiles para desarrollo eficiente",
+                    ].map((item, index) => (
+                      <li
+                        key={index}
+                        className="flex items-start gap-3 text-sm text-slate-300 md:text-base"
+                      >
+                        <span className="mt-1 text-[#f7bd2d]">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
-
-              <div className="mt-8 text-center">
-                <button className="bg-[#f7bd2d] text-[#030d41] font-bold px-8 py-3 rounded-xl hover:bg-[#ffd34e] transition-colors">
-                  Contactar ahora
-                </button>
-              </div>
             </div>
           </div>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
 
       <style jsx>{`
         @keyframes float {
@@ -310,4 +333,4 @@ export default function AboutSection() {
       `}</style>
     </>
   );
-}   
+}

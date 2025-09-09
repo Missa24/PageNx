@@ -48,7 +48,7 @@ const OurClients = () => {
       <div className="container relative z-10 mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Nuestros <span className="text-blue-600">Clientes</span>
+            Nuestros <span className="text-[#030d41]">Clientes</span>
           </h2>
           <p className="text-sm sm:text-base text-black max-w-xl mx-auto">
             Empresas que han confiado en nuestros servicios y soluciones de calidad

@@ -41,13 +41,6 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-[#030d41]/50 to-[#0a1a66]/30"></div>
       </div>
 
-      <button
-        onClick={toggleVideo}
-        className="absolute bottom-6 right-6 z-30 flex items-center justify-center w-12 h-12 rounded-full bg-[#f7bd2d]/20 backdrop-blur-sm border border-[#f7bd2d]/30 text-[#f7bd2d] hover:bg-[#f7bd2d]/30 transition-all"
-        aria-label={isVideoPlaying ? "Pausar video" : "Reproducir video"}
-      >
-        {isVideoPlaying ? <Pause size={16} /> : <Play size={16} />}
-      </button>
 
       <div className="absolute inset-0 z-5">
         {[...Array(20)].map((_, i) => (

@@ -6,7 +6,8 @@ import Hero from "@/components/Hero";
 import { Metadata } from "next";
 import AboutSection from "@/components/About";
 import ContactSection from "@/components/Contact/ContactSection";
-import WebsiteViewer  from "@/components/webSites/webSites";
+import WebsiteViewer from "@/components/webSites/webSites";
+import Recognitions from "@/components/Recognitions";
 
 export const metadata: Metadata = {
   title: "Noxun S.R.L.",
@@ -23,6 +24,7 @@ export default function Home() {
       <Features />
       <AboutSection />
       <OurService />
+      <Recognitions />
       <WebsiteViewer />
       <ContactSection />
     </>

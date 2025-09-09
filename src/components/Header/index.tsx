@@ -156,7 +156,7 @@ const Header = () => {
               <div className="flex items-center justify-end pr-16 lg:pr-0">
                 {/* Botón de WhatsApp */}
                 <a
-                  href="https://wa.me/59164235604?text=Hola,%20me%20gustaría%20obtener%20más%20información"
+                  href="https://wa.me/59170140353?text=Hola,%20me%20gustaría%20obtener%20más%20información"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`ml-4 flex items-center justify-center rounded-full p-2 transition-all duration-500 ${sticky

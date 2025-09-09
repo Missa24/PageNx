@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function ScrollToTop() {
@@ -25,15 +28,31 @@ export default function ScrollToTop() {
   }, []);
 
   return (
-    <div className="fixed right-8 bottom-8 z-99">
+    <div className="fixed right-4 bottom-8 z-[9999] max-w-full overflow-hidden sm:right-6">
       {isVisible && (
-        <div
+        <motion.div
           onClick={scrollToTop}
-          aria-label="scroll to top"
-          className="bg-primary/80 hover:shadow-signUp flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-white shadow-md transition duration-300 ease-in-out"
+          aria-label="Volver al inicio"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-[#f7bd2d] shadow-md transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-lg sm:h-12 sm:w-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          <span className="mt-[6px] h-3 w-3 rotate-45 border-t border-l border-white"></span>
-        </div>
+          <svg
+            className="h-5 w-5 text-[#030d41] sm:h-6 sm:w-6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 15l7-7 7 7"
+            />
+          </svg>
+        </motion.div>
       )}
     </div>
   );

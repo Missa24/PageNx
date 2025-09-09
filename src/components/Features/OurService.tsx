@@ -9,7 +9,7 @@ const services = [
     description: "Soluciones tecnológicas diseñadas específicamente para las necesidades de cada empresa",
     icon: <Code className="h-8 w-8" />,
     downloadUrl: "/pdfs/services/empresa.pdf",
-    features: ["Personalizado", "Escalable", "Soporte 24/7"]
+    features: ["Personalizado", "Escalable", "Soporte Continuo"]
   },
   {
     title: "Diseño web",
