@@ -34,7 +34,7 @@ const Navbar = () => {
               <Link href="#home-section" className="flex items-center">
                 <div className="relative mr-2 h-10 w-10 lg:h-12 lg:w-12">
                   <Image
-                    src="/images/Noxun.png"
+                    src="/images/noxun.png"
                     alt="Logo"
                     fill
                     className="object-contain"
