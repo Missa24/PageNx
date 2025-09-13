@@ -2,6 +2,23 @@ export const features = [
   {
     id: 6,
     bgImage: "/images/features/trazo.jpg",
+    bgVideo: "/images/video/hero_video.mp4",
+    title: "Sistema Trazo",
+    paragraph:
+      "Software enfocado en agencias despachantes aduaneros para simplificar los procesos de gestión y potenciar tu negocio.",
+    objetivo:
+      "Proveer a nuestros clientes soluciones integrales que se adapten a sus necesidades y ayuden a mejorar el flujo de sus despachos también dar tranquilidad a sus clientes mostrando el flujo de sus trámites.",
+    alcance:
+      "La plataforma una vez implementada dentro de su institución, le permitirá registrar la documentación tanto de sus clientes como de los despachos de una manera fácil e intuitiva para el personal encargado del proceso del trámite, entre otros beneficios.",
+    download: "/pdfs/systems/trazo.pdf",
+    videoUrl: "https://www.youtube.com/embed/TU_VIDEO_ID_AQUI", // Agregar esta línea
+  },
+];
+
+/*export const features = [
+  {
+    id: 6,
+    bgImage: "/images/features/trazo.jpg",
     title: "Sistema Trazo",
     paragraph:
       "Software enfocado en agencias despachantes aduaneros para simplificar los procesos de gestión y potenciar tu negocio.",
@@ -123,3 +140,5 @@ export const features = [
     download: "/pdfs/systems/disenoyplaneacion.pdf",
   },
 ];
+
+*/

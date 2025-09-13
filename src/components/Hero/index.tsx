@@ -1,46 +1,89 @@
-"use client"
-import Link from "next/link";
+"use client";
 import { useState, useEffect, useRef } from "react";
-import { Play, Pause, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
+
 const Hero = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
-  const videoRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Carrusel (videos + imágenes)
+  const slides = [
+    {
+      type: "video",
+      src: "/images/Banner/hero.mp4",
+      alt: "Servicios logísticos integrales",
+    },
+    {
+      type: "image",
+      src: "/images/Banner/hero1.jpg",
+      alt: "Servicios aduaneros profesionales",
+    },
+    {
+      type: "image",
+      src: "/images/Banner/hero2.jpg",
+      alt: "Transporte y logística eficiente",
+    },
+    {
+      type: "video",
+      src: "/images/Banner/hero3.mp4",
+      alt: "Soluciones aduaneras completas",
+    },
+  ];
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const toggleVideo = () => {
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsVideoPlaying(!isVideoPlaying);
+    const video = videoRef.current;
+    if (video && slides[currentSlide].type === "video") {
+      video.play().catch(() => {});
     }
-  };
+  }, [currentSlide]);
+
+  // Auto cambio
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
+  const prevSlide = () =>
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
 
   return (
-    <section className="relative min-h-screen overflow-hidden flex items-center justify-center bg-[#030d41]">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#030d41]">
       <div className="absolute inset-0 z-0">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="images/video/hero_video.mp4" type="video/mp4" />
-        </video>
-
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030d41]/80 via-[#030d41]/50 to-[#030d41]/80"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#030d41]/50 to-[#0a1a66]/30"></div>
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100" : "opacity-0"}`}
+          >
+            {slide.type === "video" ? (
+              <video
+                ref={index === currentSlide ? videoRef : null}
+                autoPlay
+                loop
+                muted={isMuted}
+                playsInline
+                className="h-full w-full object-cover"
+                src={slide.src}
+              />
+            ) : (
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                className="object-cover"
+                priority={index === 0}
+              />
+            )}
+            <div className="absolute inset-0 bg-[#030d41]/50"></div>
+          </div>
+        ))}
       </div>
-
 
       <div className="absolute inset-0 z-5">
         {[...Array(20)].map((_, i) => (
@@ -70,63 +113,76 @@ const Hero = () => {
 
       <div className="absolute inset-0 z-1 overflow-hidden">
         <motion.div
-          className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-[#f7bd2d]/10 blur-3xl"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity
-          }}
+          className="absolute top-1/3 left-1/4 h-96 w-96 rounded-full bg-[#f7bd2d]/10 blur-3xl"
+          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/3 w-80 h-80 rounded-full bg-[#f7bd2d]/5 blur-3xl"
-          animate={{
-            scale: [1.1, 1, 1.1],
-            opacity: [0.2, 0.4, 0.2]
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            delay: 2
-          }}
+          className="absolute right-1/3 bottom-1/4 h-80 w-80 rounded-full bg-[#f7bd2d]/5 blur-3xl"
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 10, repeat: Infinity, delay: 2 }}
         />
       </div>
 
-      <div className="container relative z-20 px-4 text-center">
-
+      <div className="relative z-20 px-6 text-center">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
+          className="mb-6 text-4xl leading-tight font-bold text-white md:text-6xl"
         >
-          <span className="text-[#f7bd2d]">Transformamos</span>
+          Transformamos
           <br />
-          ideas en realidad
+          <span className="text-[#f7bd2d]">Ideas en realidad</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light"
+          className="mx-auto mb-10 max-w-2xl text-lg font-light text-gray-200 md:text-xl"
         >
-          Creamos experiencias digitales excepcionales que conectan con tu audiencia
+          Creamos experiencias digitales excepcionales que conectan con tu
+          audiencia
         </motion.p>
 
-
         <motion.div
-          className="mt-24 flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex justify-center"
         >
+          <Link
+            href="#projects"
+            className="transform rounded-lg bg-[#f7bd2d] px-8 py-3 font-semibold text-[#030d41] shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#dca90d]"
+          >
+            Ver proyectos
+          </Link>
         </motion.div>
       </div>
 
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-[#f7bd2d]/5 rounded-full blur-[100px] z-1"></div>
+      <button
+        onClick={prevSlide}
+        className="absolute top-1/2 left-4 z-20 hidden -translate-y-1/2 transform rounded-full bg-white/10 p-2 backdrop-blur-sm transition-all hover:bg-white/20 md:block"
+      >
+        <ChevronLeft className="h-6 w-6 text-white" />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute top-1/2 right-4 z-20 hidden -translate-y-1/2 transform rounded-full bg-white/10 p-2 backdrop-blur-sm transition-all hover:bg-white/20 md:block"
+      >
+        <ChevronRight className="h-6 w-6 text-white" />
+      </button>
+
+      <div className="absolute bottom-6 left-1/2 z-20 flex hidden -translate-x-1/2 transform space-x-2 md:flex">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`h-3 w-3 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-[#f7bd2d]" : "bg-white/50"}`}
+          />
+        ))}
+      </div>
     </section>
   );
 };

@@ -1,21 +1,15 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { FileText, X, ArrowRight, Target, Globe, Download } from "lucide-react";
-import { features } from "./featuresData";
+import { Play, Download, X, ChevronRight, ChevronLeft } from "lucide-react";
 
-const FeaturesSection = () => {
-  const [selectedFeature, setSelectedFeature] = useState(null);
-  const [open, setOpen] = useState(false);
+const FeaturesSection = ({ features }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [videoUrl, setVideoUrl] = useState("");
+  const [showVideo, setShowVideo] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const videoRefs = useRef([]);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -30,194 +24,167 @@ const FeaturesSection = () => {
     };
   }, []);
 
-  const openDialog = (feature) => {
-    setSelectedFeature(feature);
-    setOpen(true);
+  useEffect(() => {
+    if (showVideo) {
+      videoRefs.current.forEach((video) => {
+        if (video) video.pause();
+      });
+    }
+  }, [showVideo]);
+
+  const openVideo = (url) => {
+    setVideoUrl(url);
+    setShowVideo(true);
   };
 
-  const closeDialog = () => {
-    setOpen(false);
-    setTimeout(() => setSelectedFeature(null), 300);
+  const closeVideo = () => {
+    setShowVideo(false);
+    setVideoUrl("");
+  };
+
+  const nextFeature = () => {
+    setActiveIndex((prev) => (prev + 1) % features.length);
+  };
+
+  const prevFeature = () => {
+    setActiveIndex((prev) => (prev - 1 + features.length) % features.length);
   };
 
   return (
-    <section className="bg-[#030d41] py-16" id="ourservice">
-      <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
-          <div className="mb-6 inline-flex items-center justify-center rounded-full bg-[#f7bd2d]/10 px-4 py-2">
-            <span className="text-sm font-semibold text-[#f7bd2d]">
-              Soluciones Tecnológicas
-            </span>
-          </div>
-          <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-            Potencia tu <span className="text-[#f7bd2d]">Negocio</span>
-          </h2>
-          <p className="mx-auto max-w-3xl text-lg text-slate-300">
-            Descubre nuestras soluciones tecnológicas diseñadas para optimizar y
-            transformar tu empresa.
-          </p>
-        </div>
+    <section
+      className="relative min-h-screen w-full overflow-hidden"
+      id="ourservice"
+    >
+      <div className="absolute top-1/2 right-4 z-20 hidden -translate-y-1/2 transform md:flex md:flex-col md:space-y-2">
+        {features.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveIndex(index)}
+            className={`h-3 w-3 rounded-full ${index === activeIndex ? "bg-[#f7bd2d]" : "bg-white/50"}`}
+            aria-label={`Ir a característica ${index + 1}`}
+          />
+        ))}
+      </div>
 
-        <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="animate-float absolute rounded-full bg-[#f7bd2d]"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 10 + 5}px`,
-                height: `${Math.random() * 10 + 5}px`,
-                opacity: Math.random() * 0.3 + 0.1,
-                animationDuration: `${Math.random() * 15 + 10}s`,
-                animationDelay: `${Math.random() * 5}s`,
-              }}
-            />
-          ))}
-        </div>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {features.map((feature) => (
-            <div
-              key={feature.id}
-              className="group relative transform cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-[#f7bd2d]/30 hover:shadow-2xl hover:shadow-[#f7bd2d]/10"
-              onClick={() => openDialog(feature)}
-            >
-              <div className="relative h-40 overflow-hidden">
+      <button
+        onClick={prevFeature}
+        className="absolute top-1/2 left-4 z-20 hidden -translate-y-1/2 transform rounded-full bg-white/20 p-2 backdrop-blur-sm transition-all hover:bg-white/30 md:block"
+        aria-label="Característica anterior"
+      >
+        <ChevronLeft className="h-6 w-6 text-white" />
+      </button>
+      <button
+        onClick={nextFeature}
+        className="absolute top-1/2 right-4 z-20 hidden -translate-y-1/2 transform rounded-full bg-white/20 p-2 backdrop-blur-sm transition-all hover:bg-white/30 md:block"
+        aria-label="Siguiente característica"
+      >
+        <ChevronRight className="h-6 w-6 text-white" />
+      </button>
+
+      <div className="relative h-screen w-full">
+        {features.map((feature, index) => (
+          <div
+            key={feature.id}
+            className={`absolute inset-0 flex flex-col transition-all duration-700 ease-in-out md:flex-row ${index === activeIndex ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}
+          >
+            <div className="relative h-1/2 w-full md:h-full md:w-[65%]">
+              {feature.bgVideo ? (
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover"
+                  poster={feature.bgImage}
+                >
+                  <source src={feature.bgVideo} type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
+              ) : (
                 <Image
                   src={feature.bgImage}
                   alt={feature.title}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover"
+                  priority={index === activeIndex}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#030d41] to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-80" />
+              )}
+            </div>
 
-                <div className="absolute bottom-3 left-3">
-                  <h3 className="text-lg font-bold text-white">
-                    {feature.title}
-                  </h3>
-                </div>
-
-                <div className="absolute top-3 right-3">
-                  <div className="flex h-8 w-8 transform items-center justify-center rounded-full bg-[#f7bd2d] transition-transform duration-300 group-hover:scale-110">
-                    <FileText className="h-4 w-4 text-[#030d41]" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4">
-                <p className="line-clamp-3 text-sm text-slate-300 transition-colors group-hover:text-white">
+            <div
+              className={`flex h-1/2 w-full flex-col justify-center bg-gradient-to-br ${feature.color} p-6 md:h-full md:w-[35%] md:p-12`}
+            >
+              <div>
+                <h3 className="mb-4 text-3xl font-bold text-[#030d41] md:mb-6 md:text-4xl">
+                  {feature.title}
+                </h3>
+                <p className="mb-6 text-lg text-[#030d41]/90 md:mb-8 md:text-xl">
                   {feature.paragraph}
                 </p>
-
-                <div className="mt-3 flex items-center text-[#f7bd2d] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <span className="text-xs font-medium">Explorar</span>
-                  <ArrowRight className="ml-1 h-3 w-3" />
+                <div className="flex flex-wrap gap-3 md:gap-4">
+                  {feature.videoUrl && (
+                    <Button
+                      onClick={() => openVideo(feature.videoUrl)}
+                      className="bg-[#030d41] text-white hover:bg-[#030d41]/90"
+                      size={isMobile ? "sm" : "default"}
+                    >
+                      <Play className="mr-2 h-4 w-4" />
+                      Ver Demo
+                    </Button>
+                  )}
+                  <a
+                    href={feature.download}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-md bg-[#030d41]/10 px-3 py-2 text-xs font-medium text-[#030d41] transition-colors hover:bg-[#030d41]/20 md:px-4 md:py-2 md:text-sm"
+                  >
+                    <Download className="mr-2 h-3 w-3 md:h-4 md:w-4" />
+                    Descargar PDF
+                  </a>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent
-          className={`max-w-[95vw] ${isMobile ? "h-[50vh] max-h-[70vh]" : "h-auto max-h-[70vh] max-w-7xl"} overflow-y-auto rounded-xl border-2 border-[#f7bd2d]/30 bg-[#030d41] p-0 text-white shadow-2xl shadow-[#f7bd2d]/10`}
-        >
-          {selectedFeature && (
-            <>
-              <DialogHeader className="sr-only">
-                <DialogTitle>{selectedFeature.title}</DialogTitle>
-              </DialogHeader>
+      {/* Indicadores para móvil */}
+      <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 transform space-x-2 md:hidden">
+        {features.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveIndex(index)}
+            className={`h-2 w-2 rounded-full ${index === activeIndex ? "bg-[#f7bd2d]" : "bg-white/50"}`}
+            aria-label={`Ir a característica ${index + 1}`}
+          />
+        ))}
+      </div>
 
-              <div className="relative">
-                <div
-                  className={`relative ${isMobile ? "h-60" : "h-64"} w-full`}
-                >
-                  <Image
-                    src={selectedFeature.bgImage}
-                    alt={selectedFeature.title}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030d41]/80 to-[#030d41]" />
+      {/* Modal de video */}
+      {showVideo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+          <div className="relative w-full max-w-4xl">
+            <Button
+              onClick={closeVideo}
+              className="absolute -top-12 right-0 z-10 rounded-full bg-[#f7bd2d] p-2 hover:bg-[#f7bd2d]/90"
+              size="icon"
+            >
+              <X className="h-5 w-5 text-[#030d41]" />
+            </Button>
 
-                  <div className="absolute right-6 bottom-6 left-6">
-                    <h2 className="mb-2 text-2xl font-bold text-white md:text-3xl">
-                      {selectedFeature.title}
-                    </h2>
-                    <p className="max-w-2xl text-base text-slate-200 md:text-lg">
-                      {selectedFeature.paragraph}
-                    </p>
-                  </div>
-
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-4 right-4 z-10 transform rounded-full border border-[#f7bd2d]/30 bg-[#030d41]/80 backdrop-blur-md transition-all hover:scale-110 hover:bg-[#f7bd2d] hover:text-[#030d41]"
-                    onClick={closeDialog}
-                  >
-                    <X className="h-5 w-5" />
-                  </Button>
-                </div>
-
-                <div className="p-6 md:p-8">
-                  <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
-                    <div className="rounded-2xl border border-[#f7bd2d]/20 bg-gradient-to-br from-[#f7bd2d]/10 to-[#f7bd2d]/5 p-5">
-                      <div className="mb-4 flex items-center">
-                        <div className="mr-3 rounded-lg bg-[#f7bd2d] p-2">
-                          <Target className="h-5 w-5 text-[#030d41]" />
-                        </div>
-                        <h3 className="text-lg font-bold text-white">
-                          Objetivo Principal
-                        </h3>
-                      </div>
-                      <p className="text-sm leading-relaxed text-slate-200">
-                        {selectedFeature.objetivo}
-                      </p>
-                    </div>
-
-                    <div className="rounded-2xl border border-[#f7bd2d]/20 bg-gradient-to-br from-[#f7bd2d]/10 to-[#f7bd2d]/5 p-5">
-                      <div className="mb-4 flex items-center">
-                        <div className="mr-3 rounded-lg bg-[#f7bd2d] p-2">
-                          <Globe className="h-5 w-5 text-[#030d41]" />
-                        </div>
-                        <h3 className="text-lg font-bold text-white">
-                          Alcance Integral
-                        </h3>
-                      </div>
-                      <p className="text-sm leading-relaxed text-slate-200">
-                        {selectedFeature.alcance}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="rounded-2xl border border-[#f7bd2d]/20 bg-gradient-to-r from-[#f7bd2d]/10 to-[#f7bd2d]/5 p-5">
-                    <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-                      <div>
-                        <h4 className="mb-2 text-lg font-bold text-white">
-                          ¿Listo para transformar tu negocio?
-                        </h4>
-                        <p className="text-sm text-slate-300">
-                          Descarga la información completa en PDF
-                        </p>
-                      </div>
-                      <a
-                        href={selectedFeature.download}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex transform items-center justify-center rounded-xl bg-[#f7bd2d] px-5 py-2.5 text-sm font-bold text-[#030d41] shadow-lg shadow-[#f7bd2d]/20 transition-all hover:scale-105 hover:bg-[#f7bd2d]/90"
-                      >
-                        <Download className="mr-2 h-4 w-4" />
-                        Descargar PDF
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+              <iframe
+                src={videoUrl}
+                className="absolute inset-0 h-full w-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Video demostrativo"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

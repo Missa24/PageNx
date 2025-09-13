@@ -20,12 +20,12 @@ export default function Home() {
     <>
       <ScrollUp />
       <Hero />
-      <OurClients />
       <Features />
       <AboutSection />
       <OurService />
       <Recognitions />
       <WebsiteViewer />
+      <OurClients />
       <ContactSection />
     </>
   );
