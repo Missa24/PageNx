@@ -14,23 +14,23 @@ const Hero = () => {
   const slides = [
     {
       type: "video",
-      src: "/images/Banner/hero.mp4",
-      alt: "Servicios logísticos integrales",
+      src: "/images/video/hero_video.mp4",
+      alt: "",
     },
     {
       type: "image",
-      src: "/images/Banner/hero1.jpg",
-      alt: "Servicios aduaneros profesionales",
+      src: "/images/video/fondo2.jpg",
+      alt: "",
     },
     {
       type: "image",
-      src: "/images/Banner/hero2.jpg",
-      alt: "Transporte y logística eficiente",
+      src: "/images/video/fondo1.jpg",
+      alt: "",
     },
     {
       type: "video",
-      src: "/images/Banner/hero3.mp4",
-      alt: "Soluciones aduaneras completas",
+      src: "/images/video/hero_video2.mp4",
+      alt: "",
     },
   ];
 
@@ -80,7 +80,7 @@ const Hero = () => {
                 priority={index === 0}
               />
             )}
-            <div className="absolute inset-0 bg-[#030d41]/50"></div>
+            <div className="absolute inset-0 bg-[#030d41]/70"></div>
           </div>
         ))}
       </div>
@@ -159,29 +159,6 @@ const Hero = () => {
             Ver proyectos
           </Link>
         </motion.div>
-      </div>
-
-      <button
-        onClick={prevSlide}
-        className="absolute top-1/2 left-4 z-20 hidden -translate-y-1/2 transform rounded-full bg-white/10 p-2 backdrop-blur-sm transition-all hover:bg-white/20 md:block"
-      >
-        <ChevronLeft className="h-6 w-6 text-white" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute top-1/2 right-4 z-20 hidden -translate-y-1/2 transform rounded-full bg-white/10 p-2 backdrop-blur-sm transition-all hover:bg-white/20 md:block"
-      >
-        <ChevronRight className="h-6 w-6 text-white" />
-      </button>
-
-      <div className="absolute bottom-6 left-1/2 z-20 flex hidden -translate-x-1/2 transform space-x-2 md:flex">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`h-3 w-3 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-[#f7bd2d]" : "bg-white/50"}`}
-          />
-        ))}
       </div>
     </section>
   );
