@@ -153,7 +153,7 @@ const Hero = () => {
           className="flex justify-center"
         >
           <Link
-            href="#projects"
+            href="#ourservice"
             className="transform rounded-lg bg-[#f7bd2d] px-8 py-3 font-semibold text-[#030d41] shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#dca90d]"
           >
             Ver proyectos
